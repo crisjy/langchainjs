@@ -34,11 +34,7 @@ export type AzureCosmosDBMongoDBIndexOptions = {
   /** Skips automatic index creation. */
   readonly skipCreate?: boolean;
 
-<<<<<<< HEAD
   readonly indexType?: 'ivf' | 'hnsw' | 'diskann';
-=======
-  readonly indexType?: "ivf" | "hnsw";
->>>>>>> 4fa84d3c5ec6678a578e84726d3952e4580308e5
   /** Number of clusters that the inverted file (IVF) index uses to group the vector data. */
   readonly numLists?: number;
   /** Number of dimensions for vector similarity. */
@@ -49,7 +45,6 @@ export type AzureCosmosDBMongoDBIndexOptions = {
   readonly m?: number;
   /** The size of the dynamic candidate list for constructing the graph with the HNSW index. */
   readonly efConstruction?: number;
-<<<<<<< HEAD
   /** Max number of neighbors withe the Diskann idnex */
   readonly maxDegree?: number;
   /** L value for index building withe the Diskann idnex */
@@ -57,8 +52,6 @@ export type AzureCosmosDBMongoDBIndexOptions = {
   /** L value for index searching withe the Diskann idnex */
   readonly lSearch?: number;
   
-=======
->>>>>>> 4fa84d3c5ec6678a578e84726d3952e4580308e5
 };
 
 /** Azure Cosmos DB for MongoDB vCore delete Parameters. */
@@ -248,11 +241,7 @@ export class AzureCosmosDBMongoDBVectorStore extends VectorStore {
    */
   async createIndex(
     dimensions: number | undefined = undefined,
-<<<<<<< HEAD
     indexType:'ivf' | 'hnsw' | 'diskann' = 'ivf',
-=======
-    indexType: "ivf" | "hnsw" = "ivf",
->>>>>>> 4fa84d3c5ec6678a578e84726d3952e4580308e5
     similarity: AzureCosmosDBMongoDBSimilarityType = AzureCosmosDBMongoDBSimilarityType.COS
   ): Promise<void> {
     await this.connectPromise;
@@ -292,21 +281,7 @@ export class AzureCosmosDBMongoDBVectorStore extends VectorStore {
         {
           name: this.indexName,
           key: { [this.embeddingKey]: "cosmosSearch" },
-<<<<<<< HEAD
           cosmosSearchOptions,
-=======
-          cosmosSearchOptions: {
-            kind: indexType === "hnsw" ? "vector-hnsw" : "vector-ivf",
-            ...(indexType === "hnsw"
-              ? {
-                  m: this.indexOptions.m ?? 16,
-                  efConstruction: this.indexOptions.efConstruction ?? 200,
-                }
-              : { numLists: this.indexOptions.numLists ?? 100 }),
-            similarity,
-            dimensions: vectorLength,
-          },
->>>>>>> 4fa84d3c5ec6678a578e84726d3952e4580308e5
         },
       ],
     };
@@ -508,11 +483,7 @@ export class AzureCosmosDBMongoDBVectorStore extends VectorStore {
     // Unless skipCreate is set, create the index
     // This operation is no-op if the index already exists
     if (!this.indexOptions.skipCreate) {
-<<<<<<< HEAD
       const indexType = this.indexOptions.indexType || 'ivf';
-=======
-      const indexType = this.indexOptions.indexType === "hnsw" ? "hnsw" : "ivf";
->>>>>>> 4fa84d3c5ec6678a578e84726d3952e4580308e5
       await this.createIndex(
         this.indexOptions.dimensions,
         indexType,
